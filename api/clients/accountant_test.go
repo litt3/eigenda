@@ -174,9 +174,9 @@ func TestAccountBlobCallSeries(t *testing.T) {
 	pricePerSymbol := uint32(1)
 	minNumSymbols := uint32(100)
 
-	privateKey1, err := crypto.GenerateKey()
+	privateKey, err := crypto.GenerateKey()
 	assert.NoError(t, err)
-	paymentSigner, err := auth.NewPaymentSigner(hex.EncodeToString(privateKey1.D.Bytes()))
+	paymentSigner, err := auth.NewPaymentSigner(hex.EncodeToString(privateKey.D.Bytes()))
 	assert.NoError(t, err)
 	accountant := NewAccountant(reservation, onDemand, reservationWindow, pricePerSymbol, minNumSymbols, paymentSigner, numBins)
 
