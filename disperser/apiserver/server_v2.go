@@ -13,6 +13,7 @@ import (
 	"github.com/Layr-Labs/eigenda/common"
 	healthcheck "github.com/Layr-Labs/eigenda/common/healthcheck"
 	"github.com/Layr-Labs/eigenda/core"
+	"github.com/Layr-Labs/eigenda/core/meterer"
 	corev2 "github.com/Layr-Labs/eigenda/core/v2"
 	"github.com/Layr-Labs/eigenda/disperser"
 	"github.com/Layr-Labs/eigenda/disperser/common/v2/blobstore"
@@ -35,6 +36,7 @@ type DispersalServerV2 struct {
 	serverConfig      disperser.ServerConfig
 	blobStore         *blobstore.BlobStore
 	blobMetadataStore *blobstore.BlobMetadataStore
+	meterer           *meterer.Meterer
 
 	chainReader   core.Reader
 	authenticator corev2.BlobRequestAuthenticator
