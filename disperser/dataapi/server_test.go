@@ -1375,15 +1375,3 @@ func startTestGRPCServer(address string) (stopFunc func(), err error) {
 
 	return stopFunc, nil
 }
-
-// Helper to get OperatorData from response
-func getOperatorData(operatorMetadtas []*dataapi.QueriedStateOperatorMetadata, operatorId string) dataapi.QueriedStateOperatorMetadata {
-
-	for _, operatorMetadata := range operatorMetadtas {
-		if operatorMetadata.OperatorId == operatorId {
-			return *operatorMetadata
-		}
-	}
-	return dataapi.QueriedStateOperatorMetadata{}
-
-}
