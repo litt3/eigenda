@@ -107,16 +107,16 @@ type Reader interface {
 	GetAllVersionedBlobParams(ctx context.Context) (map[uint8]*BlobVersionParameters, error)
 
 	// GetActiveReservations returns active reservations (end timestamp > current timestamp)
-	GetActiveReservations(ctx context.Context, blockNumber uint32, accountIDs []string) (map[string]ActiveReservation, error)
+	GetActiveReservations(ctx context.Context, accountIDs []string) (map[string]ActiveReservation, error)
 
-	// GetActiveReservationByAccount returns active reservation by account ID
-	GetActiveReservationByAccount(ctx context.Context, blockNumber uint32, accountID string) (ActiveReservation, error)
+	// GetActiveReservations returns active reservations (end timestamp > current timestamp)
+	GetActiveReservationByAccount(ctx context.Context, accountID string) (ActiveReservation, error)
 
 	// GetOnDemandPayments returns all on-demand payments
-	GetOnDemandPayments(ctx context.Context, blockNumber uint32, accountIDs []string) (map[string]OnDemandPayment, error)
+	GetOnDemandPayments(ctx context.Context, accountIDs []string) (map[string]OnDemandPayment, error)
 
-	// GetOnDemandPaymentByAccount returns on-demand payment of an account
-	GetOnDemandPaymentByAccount(ctx context.Context, blockNumber uint32, accountID string) (OnDemandPayment, error)
+	// GetOnDemandPayments returns all on-demand payments
+	GetOnDemandPaymentByAccount(ctx context.Context, accountID string) (OnDemandPayment, error)
 }
 
 type Writer interface {
