@@ -19,11 +19,11 @@ const numBins = uint32(3)
 
 func TestNewAccountant(t *testing.T) {
 	reservation := &core.ActiveReservation{
-		SymbolsPerSec:  100,
-		StartTimestamp: 100,
-		EndTimestamp:   200,
-		QuorumSplit:    []byte{50, 50},
-		QuorumNumbers:  []uint8{0, 1},
+		SymbolsPerSecond: 100,
+		StartTimestamp:   100,
+		EndTimestamp:     200,
+		QuorumSplits:     []byte{50, 50},
+		QuorumNumbers:    []uint8{0, 1},
 	}
 	onDemand := &core.OnDemandPayment{
 		CumulativePayment: big.NewInt(500),
@@ -50,11 +50,11 @@ func TestNewAccountant(t *testing.T) {
 
 func TestAccountBlob_Reservation(t *testing.T) {
 	reservation := &core.ActiveReservation{
-		SymbolsPerSec:  200,
-		StartTimestamp: 100,
-		EndTimestamp:   200,
-		QuorumSplit:    []byte{50, 50},
-		QuorumNumbers:  []uint8{0, 1},
+		SymbolsPerSecond: 200,
+		StartTimestamp:   100,
+		EndTimestamp:     200,
+		QuorumSplits:     []byte{50, 50},
+		QuorumNumbers:    []uint8{0, 1},
 	}
 	onDemand := &core.OnDemandPayment{
 		CumulativePayment: big.NewInt(500),
@@ -102,11 +102,11 @@ func TestAccountBlob_Reservation(t *testing.T) {
 
 func TestAccountBlob_OnDemand(t *testing.T) {
 	reservation := &core.ActiveReservation{
-		SymbolsPerSec:  200,
-		StartTimestamp: 100,
-		EndTimestamp:   200,
-		QuorumSplit:    []byte{50, 50},
-		QuorumNumbers:  []uint8{0, 1},
+		SymbolsPerSecond: 200,
+		StartTimestamp:   100,
+		EndTimestamp:     200,
+		QuorumSplits:     []byte{50, 50},
+		QuorumNumbers:    []uint8{0, 1},
 	}
 	onDemand := &core.OnDemandPayment{
 		CumulativePayment: big.NewInt(1500),
@@ -161,11 +161,11 @@ func TestAccountBlob_InsufficientOnDemand(t *testing.T) {
 
 func TestAccountBlobCallSeries(t *testing.T) {
 	reservation := &core.ActiveReservation{
-		SymbolsPerSec:  200,
-		StartTimestamp: 100,
-		EndTimestamp:   200,
-		QuorumSplit:    []byte{50, 50},
-		QuorumNumbers:  []uint8{0, 1},
+		SymbolsPerSecond: 200,
+		StartTimestamp:   100,
+		EndTimestamp:     200,
+		QuorumSplits:     []byte{50, 50},
+		QuorumNumbers:    []uint8{0, 1},
 	}
 	onDemand := &core.OnDemandPayment{
 		CumulativePayment: big.NewInt(1000),
@@ -213,11 +213,11 @@ func TestAccountBlobCallSeries(t *testing.T) {
 
 func TestAccountBlob_BinRotation(t *testing.T) {
 	reservation := &core.ActiveReservation{
-		SymbolsPerSec:  1000,
-		StartTimestamp: 100,
-		EndTimestamp:   200,
-		QuorumSplit:    []byte{50, 50},
-		QuorumNumbers:  []uint8{0, 1},
+		SymbolsPerSecond: 1000,
+		StartTimestamp:   100,
+		EndTimestamp:     200,
+		QuorumSplits:     []byte{50, 50},
+		QuorumNumbers:    []uint8{0, 1},
 	}
 	onDemand := &core.OnDemandPayment{
 		CumulativePayment: big.NewInt(1000),
@@ -255,11 +255,11 @@ func TestAccountBlob_BinRotation(t *testing.T) {
 
 func TestConcurrentBinRotationAndAccountBlob(t *testing.T) {
 	reservation := &core.ActiveReservation{
-		SymbolsPerSec:  1000,
-		StartTimestamp: 100,
-		EndTimestamp:   200,
-		QuorumSplit:    []byte{50, 50},
-		QuorumNumbers:  []uint8{0, 1},
+		SymbolsPerSecond: 1000,
+		StartTimestamp:   100,
+		EndTimestamp:     200,
+		QuorumSplits:     []byte{50, 50},
+		QuorumNumbers:    []uint8{0, 1},
 	}
 	onDemand := &core.OnDemandPayment{
 		CumulativePayment: big.NewInt(1000),
@@ -302,11 +302,11 @@ func TestConcurrentBinRotationAndAccountBlob(t *testing.T) {
 
 func TestAccountBlob_ReservationWithOneOverflow(t *testing.T) {
 	reservation := &core.ActiveReservation{
-		SymbolsPerSec:  200,
-		StartTimestamp: 100,
-		EndTimestamp:   200,
-		QuorumSplit:    []byte{50, 50},
-		QuorumNumbers:  []uint8{0, 1},
+		SymbolsPerSecond: 200,
+		StartTimestamp:   100,
+		EndTimestamp:     200,
+		QuorumSplits:     []byte{50, 50},
+		QuorumNumbers:    []uint8{0, 1},
 	}
 	onDemand := &core.OnDemandPayment{
 		CumulativePayment: big.NewInt(1000),
@@ -350,11 +350,11 @@ func TestAccountBlob_ReservationWithOneOverflow(t *testing.T) {
 
 func TestAccountBlob_ReservationOverflowReset(t *testing.T) {
 	reservation := &core.ActiveReservation{
-		SymbolsPerSec:  1000,
-		StartTimestamp: 100,
-		EndTimestamp:   200,
-		QuorumSplit:    []byte{50, 50},
-		QuorumNumbers:  []uint8{0, 1},
+		SymbolsPerSecond: 1000,
+		StartTimestamp:   100,
+		EndTimestamp:     200,
+		QuorumSplits:     []byte{50, 50},
+		QuorumNumbers:    []uint8{0, 1},
 	}
 	onDemand := &core.OnDemandPayment{
 		CumulativePayment: big.NewInt(1000),
