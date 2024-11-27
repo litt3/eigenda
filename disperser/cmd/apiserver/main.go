@@ -181,6 +181,7 @@ func RunDisperserServer(ctx *cli.Context) error {
 			prover,
 			uint64(config.MaxNumSymbolsPerBlob),
 			config.OnchainStateRefreshInterval,
+			config.OffchainStatePruningInterval,
 			logger,
 		)
 		return server.Start(context.Background())

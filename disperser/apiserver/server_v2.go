@@ -46,9 +46,10 @@ type DispersalServerV2 struct {
 	logger        logging.Logger
 
 	// state
-	onchainState                atomic.Pointer[OnchainState]
-	maxNumSymbolsPerBlob        uint64
-	onchainStateRefreshInterval time.Duration
+	onchainState                 atomic.Pointer[OnchainState]
+	maxNumSymbolsPerBlob         uint64
+	onchainStateRefreshInterval  time.Duration
+	offchainStatePruningInterval time.Duration
 }
 
 // NewDispersalServerV2 creates a new Server struct with the provided parameters.
@@ -64,6 +65,7 @@ func NewDispersalServerV2(
 	prover encoding.Prover,
 	maxNumSymbolsPerBlob uint64,
 	onchainStateRefreshInterval time.Duration,
+	offchainStatePruningInterval time.Duration,
 	_logger logging.Logger,
 ) *DispersalServerV2 {
 	logger := _logger.With("component", "DispersalServerV2")
@@ -79,8 +81,9 @@ func NewDispersalServerV2(
 		prover:        prover,
 		logger:        logger,
 
-		maxNumSymbolsPerBlob:        maxNumSymbolsPerBlob,
-		onchainStateRefreshInterval: onchainStateRefreshInterval,
+		maxNumSymbolsPerBlob:         maxNumSymbolsPerBlob,
+		onchainStateRefreshInterval:  onchainStateRefreshInterval,
+		offchainStatePruningInterval: offchainStatePruningInterval,
 	}
 }
 
@@ -115,6 +118,22 @@ func (s *DispersalServerV2) Start(ctx context.Context) error {
 			case <-ticker.C:
 				if err := s.RefreshOnchainState(ctx); err != nil {
 					s.logger.Error("failed to refresh onchain quorum state", "err", err)
+				}
+			case <-ctx.Done():
+				return
+			}
+		}
+	}()
+
+	go func() {
+		ticker := time.NewTicker(s.offchainStatePruningInterval)
+		defer ticker.Stop()
+
+		for {
+			select {
+			case <-ticker.C:
+				if err := s.meterer.OffchainStore.DeleteOldBins(ctx, s.meterer.CurrentBinIndex()-1); err != nil {
+					s.logger.Error("failed to delete old bins", "err", err)
 				}
 			case <-ctx.Done():
 				return

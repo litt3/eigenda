@@ -131,14 +131,19 @@ func (m *Meterer) ValidateQuorum(headerQuorums []uint8, allowedQuorums []uint8) 
 
 // ValidateBinIndex checks if the provided bin index is valid
 func (m *Meterer) ValidateBinIndex(header core.PaymentMetadata, reservation *core.ActiveReservation) bool {
-	now := uint64(time.Now().Unix())
-	reservationWindow := m.ChainPaymentState.GetReservationWindow()
-	currentBinIndex := GetBinIndex(now, reservationWindow)
+	currentBinIndex := m.CurrentBinIndex()
 	// Valid bin indexes are either the current bin or the previous bin
-	if (header.BinIndex != currentBinIndex && header.BinIndex != (currentBinIndex-1)) || (GetBinIndex(reservation.StartTimestamp, reservationWindow) > header.BinIndex || header.BinIndex > GetBinIndex(reservation.EndTimestamp, reservationWindow)) {
+	if (header.BinIndex != currentBinIndex && header.BinIndex != (currentBinIndex-1)) || (GetBinIndex(reservation.StartTimestamp, m.ChainPaymentState.GetReservationWindow()) > header.BinIndex || header.BinIndex > GetBinIndex(reservation.EndTimestamp, m.ChainPaymentState.GetReservationWindow())) {
 		return false
 	}
 	return true
+}
+
+// CurrentBinIndex returns the current bin index
+func (m *Meterer) CurrentBinIndex() uint32 {
+	now := uint64(time.Now().Unix())
+	reservationWindow := m.ChainPaymentState.GetReservationWindow()
+	return GetBinIndex(now, reservationWindow)
 }
 
 // IncrementBinUsage increments the bin usage atomically and checks for overflow
