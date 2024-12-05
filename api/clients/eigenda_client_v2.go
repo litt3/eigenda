@@ -3,6 +3,7 @@ package clients
 import (
 	"context"
 	auth "github.com/Layr-Labs/eigenda/core/auth/v2"
+	"github.com/Layr-Labs/eigenda/encoding"
 	"github.com/Layr-Labs/eigenda/encoding/kzg"
 	"github.com/Layr-Labs/eigenda/encoding/kzg/prover"
 	"github.com/Layr-Labs/eigensdk-go/logging"
@@ -69,6 +70,7 @@ func NewEigenDAClientV2(
 	log logging.Logger,
 	clientConfig EigenDAClientConfig,
 	kzgConfig kzg.KzgConfig,
+	encodingConfig encoding.Config,
 	relayClientConfig RelayClientConfig) (EigenDAClientV2, error) {
 
 	err := clientConfig.CheckAndSetDefaults()
@@ -97,7 +99,7 @@ func NewEigenDAClientV2(
 		return nil, fmt.Errorf("invalid length for signer private key")
 	}
 
-	encodingProver, err := prover.NewProver(&kzgConfig, true)
+	encodingProver, err := prover.NewProver(&kzgConfig, &encodingConfig)
 	if err != nil {
 		return nil, fmt.Errorf("new prover: %w", err)
 	}
